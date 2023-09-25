@@ -1,0 +1,75 @@
+<html>
+  <head>
+        <title>PassKey - Vault</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  </head>
+  <body>
+    <!-- Add a header to the page -->
+    <header>
+      <div class="logo">PassKey - Vault</div>
+        <div class="navigation">
+        <a>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p>{{ message }}<p>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+        </a>
+        <a href="/logout">Logout</a>
+        
+      </div>
+    </header>
+    <!-- Add a main section to the page -->
+        <div class="left-container">
+            <a href="/add"><img class="imgadd" src="{{ url_for('static', filename='images/add.png') }}" alt="Add"></a>
+            
+
+        </div>
+	    </div>
+        <div class="right-container">
+            <h1><span class="blue">&lt;</span>PassKey<span class="blue">&gt;</span> <span class="yellow">Vault</pan></h1>
+            <h2>Created by <a href="https://github.com/lucabln05" target="_blank">Luca Bellon</a></h2>
+                <table class="container">
+                <thead>
+                    <tr>
+                    <th><h1>Services</h1></th>
+                    <th><h1>Email</h1></th>
+                    <th><h1>Password</h1></th>
+                    <th><h1>URL</h1></th>
+                    <th><h1>Actions</h1></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for row in data %}   
+                    <tr>
+                        <td>{{row[1]}}</td>
+                        <td id="{{row[0]}}2" onclick="javascript:document.getElementById('{{row[0]}}2').addEventListener('click', function() {navigator.clipboard.writeText(document.getElementById('{{row[0]}}2').innerHTML);});">{{row[2]}}</td>
+                        <td class="hidetext" id="{{row[0]}}3" onclick="javascript:document.getElementById('{{row[0]}}3').addEventListener(&quot;click&quot;,function(){navigator.clipboard.writeText(document.getElementById('{{row[0]}}3').innerHTML);document.getElementById('{{row[0]}}3').className=document.getElementById('{{row[0]}}3').className===&quot;hidetext&quot;?&quot;showtext&quot;:&quot;hidetext&quot;;setTimeout(function(){document.getElementById('{{row[0]}}3').className=&quot;hidetext&quot;;},5000);});">{{row[3]}}</td>
+                        <td><a href="//{{row[4]}}">{{row[4]}}</a></td>
+                        <td>
+                        <form action="/remove" method="post">
+                            <input type="hidden" name="id" value="{{row[0]}}">
+                            <input type="submit" value="Remove" style="color:#fb667a;">
+                        </form>
+                        </td>
+                    </tr>
+
+                </script>
+                    
+                {%endfor%}
+
+                </tbody>
+                </table>
+                
+
+
+                    </div>
+        <h1><a href="https://github.com/pablorgarcia"></a>Table from Pablo García</h1>   
+    </body>
+</html>

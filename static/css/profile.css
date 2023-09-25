@@ -1,0 +1,162 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-color: #002451;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  .logo {
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  .navigation {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .navigation a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+  }
+
+  .timeline {
+    background-color: #E6ECF0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  select {
+	padding: 5px;
+	border: none;
+	border-radius: 5px;
+}
+
+  .tweet {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    padding: 20px;
+    width: 80%;
+  }
+
+  .tweet-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+
+  .tweet-avatar {
+    border-radius: 50%;
+    height: 50px;
+    margin-right: 20px;
+    width: 50px;
+  }
+  .tweet-title {
+    display: flex;
+    align-items: center;
+  }
+  .tweet-username, .userlink {
+    text-decoration: none;
+    color: #657786;
+  }
+
+  .tweet-number {
+    color: #657786;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  .tweet-date {
+    color: #657786;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  .tweet-content {
+    font-size: 16px;
+  }
+
+  input[type="submit"]{
+    margin-left: 10px;
+    background-color: #002451;
+    color: white;
+    padding: 6px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+
+a {
+  color: #657786;
+  text-decoration: none;
+}

@@ -1,0 +1,51 @@
+<html>
+  <head>
+        <title>PassKey - Login </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+        <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  </head>
+  <body>
+    <!-- Add a header to the page -->
+    <header>
+      <div class="logo">PassKey - Login</div>
+      <div class="navigation">
+        <a href="/">Home</a>
+        
+            <a href="/create">Create</a>
+            <a href="/profile">Profile</a>
+            <a href="/logout">Logout</a>
+
+            <a href="/login">Login</a>
+
+
+      </div>
+    </header>
+    <!-- Add a main section to the page -->
+        <div class="container">
+		<h1>Login to manage your Passwords</h1>
+		    <form action="/login" method="post">
+
+        <label for="username">Username</label>
+        <input type="text" name= "username" id="username">
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+        <br>
+        <br>
+        <input type="submit" value="Login">
+        <br>
+        <!-- Display the flash messages -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p>{{ message }}<p>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <br>
+        <a class="loginregister" style="padding-top: 1%" href="/register">Register</a>
+    </form>
+	</div>
+    </body>
+</html>

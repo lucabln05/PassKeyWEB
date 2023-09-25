@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <title>PassKey - New entry</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+  </head>
+  <body>
+    <!-- Add a header to the page -->
+    <header>
+      <div class="logo">PassKey - New entry</div>
+      <div class="navigation">
+        <a href="/">Vault</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </header>
+    <!-- Add a main section to the page -->
+
+
+        <div class="container">
+		<h1>Share Your Code</h1>
+		<form action="/add" method="post">
+            <label for="Service">Service</label>
+            <textarea id="Service" name="service" type="text"></textarea>
+			<label for="Email">Email</label>
+			<textarea id="Email" name="email" type="email"></textarea>
+            <label for="Password">Password</label>
+			<input type="password" id="Password" name="password">
+            <b style="color: #657786; font-size: 12px; text-align: right;" id="character-count">0/255</b>
+            <label for="URL">URL</label>
+            <textarea id="URL" name="url" type="url"></textarea>
+
+            <script>
+                var text = document.getElementById("Password");
+                var count = document.getElementById("character-count");
+
+                text.addEventListener("input", function(){
+                    if (text.value.length > 255) {
+                        text.value = text.value.substring(0, 255);
+                    }
+                    count.innerHTML = text.value.length + "/255";
+
+                });
+            </script>
+
+            <br>
+			<input type="submit" value="ADD">
+		</form>
+	</div>
+
+    </body>
+</html>
