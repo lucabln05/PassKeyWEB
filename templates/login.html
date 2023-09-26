@@ -10,27 +10,31 @@
     <header>
       <div class="logo">PassKey - Login</div>
       <div class="navigation">
-        <a href="/">Home</a>
-        
-            <a href="/create">Create</a>
-            <a href="/profile">Profile</a>
-            <a href="/logout">Logout</a>
-
-            <a href="/login">Login</a>
+        <a href="/register">Register</a>
+      
 
 
       </div>
     </header>
     <!-- Add a main section to the page -->
         <div class="container">
-		<h1>Login to manage your Passwords</h1>
+		<h1><span class="blue">&lt;</span>PassKey<span class="blue">&gt;</span> <span class="yellow">Login</pan></h1>
 		    <form action="/login" method="post">
 
-        <label for="username">Username</label>
-        <input type="text" name= "username" id="username">
+        <div class="group">      
+          <input type="text" name="email" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Email</label>
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
+        <div class="group">      
+          <input type="password" name="password" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Password</label>
+        </div>
+
         <br>
         <br>
         <input type="submit" value="Login">

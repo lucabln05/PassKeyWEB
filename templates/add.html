@@ -18,35 +18,44 @@
 
 
         <div class="container">
-		<h1>Share Your Code</h1>
-		<form action="/add" method="post">
-            <label for="Service">Service</label>
-            <textarea id="Service" name="service" type="text"></textarea>
-			<label for="Email">Email</label>
-			<textarea id="Email" name="email" type="email"></textarea>
-            <label for="Password">Password</label>
-			<input type="password" id="Password" name="password">
-            <b style="color: #657786; font-size: 12px; text-align: right;" id="character-count">0/255</b>
-            <label for="URL">URL</label>
-            <textarea id="URL" name="url" type="url"></textarea>
+        <h1><span class="blue">&lt;</span>PassKey<span class="blue">&gt;</span> <span class="yellow">New entity</pan></h1>
+	<form action="/add" method="post">
+    
+    <div class="group">      
+      <input type="text" name="service" required >
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Service</label>
+    </div>
+    
+    <div class="group">      
+      <input type="text" name="email" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Email</label>
+    </div>
 
-            <script>
-                var text = document.getElementById("Password");
-                var count = document.getElementById("character-count");
+    <div class="group">      
+      <input type="password" name="password" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Password</label>
+    </div>
 
-                text.addEventListener("input", function(){
-                    if (text.value.length > 255) {
-                        text.value = text.value.substring(0, 255);
-                    }
-                    count.innerHTML = text.value.length + "/255";
+    <div class="group">      
+      <input type="text" name="url" required>
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>URL</label>
+    </div>
 
-                });
-            </script>
-
-            <br>
-			<input type="submit" value="ADD">
+	<input type="submit" value="ADD">
 		</form>
-	</div>
 
+
+
+    
+
+	</div>
     </body>
 </html>

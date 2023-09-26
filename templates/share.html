@@ -1,6 +1,6 @@
 <html>
   <head>
-        <title>PassKey - Vault</title>
+        <title>PassKey - Share</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
@@ -9,7 +9,7 @@
   <body>
     <!-- Add a header to the page -->
     <header>
-      <div class="logo">PassKey - Vault</div>
+      <div class="logo">PassKey - Share</div>
         <div class="navigation">
         <a>
         {% with messages = get_flashed_messages() %}
@@ -20,14 +20,14 @@
         {% endif %}
         {% endwith %}
         </a>
-        <a href="/logout">Logout</a>
+
         
       </div>
     </header>
 
 	    </div>
         <div class="right-container">
-            <h1><span class="blue">&lt;</span>PassKey<span class="blue">&gt;</span> <span class="yellow">Vault</pan></h1>
+            <h1><span class="blue">&lt;</span>PassKey<span class="blue">&gt;</span> <span class="yellow">Share</pan></h1>
             <h2>Created by <a href="https://github.com/lucabln05" target="_blank">Luca Bellon</a></h2>
                 <table class="container">
                 <thead>
@@ -36,7 +36,6 @@
                     <th><h1>Email</h1></th>
                     <th><h1>Password</h1></th>
                     <th><h1>URL</h1></th>
-                    <th><h1>Actions</h1></th>
                     </tr>
                 </thead>
 
@@ -47,30 +46,16 @@
                         <td id="{{row[0]}}2" onclick="javascript:document.getElementById('{{row[0]}}2').addEventListener('click', function() {navigator.clipboard.writeText(document.getElementById('{{row[0]}}2').innerHTML);});">{{row[2]}}</td>
                         <td class="hidetext" id="{{row[0]}}3" onclick="javascript:document.getElementById('{{row[0]}}3').addEventListener(&quot;click&quot;,function(){navigator.clipboard.writeText(document.getElementById('{{row[0]}}3').innerHTML);document.getElementById('{{row[0]}}3').className=document.getElementById('{{row[0]}}3').className===&quot;hidetext&quot;?&quot;showtext&quot;:&quot;hidetext&quot;;setTimeout(function(){document.getElementById('{{row[0]}}3').className=&quot;hidetext&quot;;},5000);});">{{row[3]}}</td>
                         <td><a href="//{{row[4]}}" target="_blank" rel="noopener" >{{row[4]}}</a></td>
-                        <td>
-
-                        
-                        <form action="/share" method="post">
-                            <input type="hidden" name="id" value="{{row[0]}}">
-                            <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg></input>
-                        </form>
-
-                        <form action="/remove" method="post">
-                            <input type="hidden" name="id" value="{{row[0]}}">
-                            <button type="submit" style="color:#fb667a;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg></input>
-                        </form>
-                        
-
-                        </td>
                     </tr>
 
                 </script>
                     
-                {%endfor%}
+                
 
                 </tbody>
                 </table>
-                  
+                <h2>Shared by <a href="https://github.com/lucabln05" target="_blank">{{row[0]}}</a></h2>
+                  {%endfor%}
 
                     </div>
         <h1><a href="https://github.com/pablorgarcia"></a>Table from Pablo García</h1>   

@@ -113,11 +113,27 @@ body {
 }
 
 .right-container{
-  width: 95%;
+  width: 100%;
   height: 100%;
   position: fixed;
   overflow-y: scroll;
   background-color: #1f2739;
-  padding: 20px;
-  margin-left: 5%;
+  padding: 10px;
+}
+
+.add-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #002451;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.add-button {
+  width: 75px;
+  height: 75px;
+  font-size: 24px;
 }

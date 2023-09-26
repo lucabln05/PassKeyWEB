@@ -1,5 +1,6 @@
 import sqlite3
 from handler.crypto import hash_password, check_password, encrypt, decrypt
+import random
 
 db_path = "safe/database.db"
 
@@ -8,7 +9,7 @@ def create_structure():
     con = sqlite3.connect(db_path)
     db = con.cursor()
     db.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, salt TEXT)")
-    db.execute("CREATE TABLE IF NOT EXISTS passwords (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, service TEXT, email TEXT, password TEXT, url TEXT, FOREIGN KEY(username) REFERENCES users(username))")
+    db.execute("CREATE TABLE IF NOT EXISTS passwords (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, service TEXT, email TEXT, password TEXT, url TEXT, shareid TEXT, FOREIGN KEY(username) REFERENCES users(username))")
     con.commit()
     con.close()
 
@@ -85,3 +86,45 @@ def remove_request(username, id)-> bool:
             return True
         except:
             return False
+
+def share_request(shareid)-> list:
+    try:
+        con = sqlite3.connect(db_path)
+        db = con.cursor()
+        passwords = db.execute("SELECT username, service, email, password, url FROM passwords WHERE shareid = ?", (shareid,)).fetchall()
+        username = db.execute("SELECT username FROM passwords WHERE shareid = ?", (shareid,)).fetchone()[0]
+        password = db.execute("SELECT password FROM users WHERE username = ?", (username,)).fetchone()[0]
+        for i in range(len(passwords)):
+            passwords[i] = list(passwords[i])
+            passwords[i][3] = decrypt(passwords[i][3], password) 
+        con.close()
+        return passwords
+    except Exception as e:
+        print(e)
+        return []
+
+def share_id_request(shareid)-> bool:
+    try:
+        con = sqlite3.connect(db_path)
+        db = con.cursor()
+        db.execute("SELECT * FROM passwords WHERE shareid = ?", (shareid,))
+        share = db.fetchone()
+        con.close()
+        if share is None:
+            return False
+        else:
+            return True
+    except:
+        return False
+
+def share_generate_request(username, id)-> str:  
+        try:
+            con = sqlite3.connect(db_path)
+            db = con.cursor()
+            shareid = ''.join(random.choice('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') for i in range(32))
+            db.execute("UPDATE passwords SET shareid = ? WHERE username = ? AND id = ?", (shareid, username, id))
+            con.commit()
+            con.close()
+            return shareid
+        except:
+            return "Error"
