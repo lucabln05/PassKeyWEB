@@ -137,3 +137,20 @@ body {
   height: 75px;
   font-size: 24px;
 }
+
+.profile-button{
+  position: fixed;
+  bottom: 125px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #002451;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.profile-button {
+  width: 75px;
+  height: 75px;
+  font-size: 24px;
+}

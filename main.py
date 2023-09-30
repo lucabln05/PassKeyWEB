@@ -111,8 +111,12 @@ def share_link():
         password = session['password']
         if login_request(username, password):
             shareid = share_generate_request(username, request.form['id'])
-            flash('Link generated')
-            return redirect(url_for('share', id=shareid))
+            if shareid != None:
+                flash('Link generated')
+                return redirect(url_for('share', id=shareid))
+            else:
+                flash('Link deactivated')
+                return redirect(url_for('index'))
              
 
         else:
@@ -136,12 +140,45 @@ def share(id):
             flash('Error generating link')
             return redirect(url_for('index'))
 
+
+@app.route('/profile')
+def profile():
+    if 'username' in session:
+        return render_template('profile.html', data=get_userdata(session['username']))
+    else:
+        return redirect(url_for('login'))
+    
+@app.route('/profile', methods=['POST'])
+def profileupdate():
+    if 'username' in session:
+        sessionusername = session['username']
+        sessionpassword = session['password']
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        newusername = request.form['email']
+        oldpassword = request.form['oldpassword']
+        newpassword = request.form['newpassword']
+        try:
+                if update_profile(sessionusername, newusername, firstname, lastname):
+                    flash('Profile updated')
+                    
+                else:
+                    flash('Error updating profile')
+        except:
+                flash('Error updating profile')
+        return redirect(url_for('logout'))
+                
+
+            
+
 @app.errorhandler(404)
-def invalid_route():
+def invalid_route(self):
     return render_template('404.html')
+
 @app.route('/404')
-def callable_invalid_route():
+def callable_invalid_route(self):
     return render_template('404.html')
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0" ,port=443, debug=True, ssl_context="adhoc")

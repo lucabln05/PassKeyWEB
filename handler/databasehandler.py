@@ -8,7 +8,7 @@ db_path = "safe/database.db"
 def create_structure():
     con = sqlite3.connect(db_path)
     db = con.cursor()
-    db.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, salt TEXT)")
+    db.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, firstname TEXT, lastname TEXT, salt TEXT)")
     db.execute("CREATE TABLE IF NOT EXISTS passwords (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, service TEXT, email TEXT, password TEXT, url TEXT, shareid TEXT, FOREIGN KEY(username) REFERENCES users(username))")
     con.commit()
     con.close()
@@ -40,8 +40,36 @@ def register_request(username, password)-> bool:
             return True
         except Exception as e:
             print(e)
-            return False
+            return 
+
+def update_profile(sessionusername, newusername, firstname, lastname)-> bool:
+    try:
+        con = sqlite3.connect(db_path)
+        db = con.cursor()
+        if firstname == "":
+            firstname = None
+        if lastname == "":
+            lastname = None
+        if newusername == "":
+            newusername = sessionusername
+        db.execute("UPDATE users SET username=?, firstname = ?, lastname = ? WHERE username = ?", (newusername, firstname, lastname, sessionusername))
+        db.execute("UPDATE passwords SET username=? WHERE username = ?", (newusername, sessionusername))
+        con.commit()
+        con.close()
+        return True
+    except:
+        return False
+
         
+def get_userdata(username)-> list:
+    try:
+        con = sqlite3.connect(db_path)
+        db = con.cursor()
+        userdata = db.execute("SELECT username, firstname, lastname FROM users WHERE username = ?", (username,)).fetchone()
+        con.close()
+        return userdata
+    except:
+        return []
 
 def add_request(username, service, email, password, url)-> bool:
 
@@ -66,7 +94,7 @@ def passwords_request(username)-> list:
     try:
         con = sqlite3.connect(db_path)
         db = con.cursor()
-        passwords = db.execute("SELECT id, service, email, password, url FROM passwords WHERE username = ?", (username,)).fetchall()
+        passwords = db.execute("SELECT id, service, email, password, url, shareid FROM passwords WHERE username = ?", (username,)).fetchall()
         for i in range(len(passwords)):
             passwords[i] = list(passwords[i])
             passwords[i][3] = decrypt(passwords[i][3], db.execute("SELECT password FROM users WHERE username = ?", (username,)).fetchone()[0])
@@ -121,10 +149,17 @@ def share_generate_request(username, id)-> str:
         try:
             con = sqlite3.connect(db_path)
             db = con.cursor()
-            shareid = ''.join(random.choice('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') for i in range(32))
-            db.execute("UPDATE passwords SET shareid = ? WHERE username = ? AND id = ?", (shareid, username, id))
-            con.commit()
-            con.close()
-            return shareid
+            if db.execute("SELECT shareid FROM passwords WHERE username = ? AND id = ?", (username, id)).fetchone()[0]==None:
+                shareid = ''.join(random.choice('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') for i in range(32))
+                db.execute("UPDATE passwords SET shareid = ? WHERE username = ? AND id = ?", (shareid, username, id))
+                con.commit()
+                con.close()
+                return shareid
+            else:
+                deactivate = None
+                db.execute("UPDATE passwords SET shareid = ? WHERE username = ? AND id = ?", (deactivate, username, id))
+                con.commit()
+                con.close()
+                return None
         except:
             return "Error"

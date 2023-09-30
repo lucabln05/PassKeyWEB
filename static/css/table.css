@@ -115,7 +115,21 @@
  @media (max-width: 800px) {
  .container td:nth-child(4),
  .container th:nth-child(4) { display: none; }
- }
+ 
+ .container td:nth-child(5),
+  .container th:nth-child(5) { display: none; }
+
+.container td {
+  padding-bottom: 7%;
+  padding-top: 7%;
+  }
+
+.container {
+  width: 100%;
+}
+
+}
+
 
  .hidetext { -webkit-text-security: disc
  }

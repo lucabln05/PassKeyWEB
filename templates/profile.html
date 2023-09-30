@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-        <title>PassKey - New entry</title>
+        <title>PassKey - Profile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+        
   </head>
   <body>
     <!-- Add a header to the page -->
     <header>
-      <div class="logo">PassKey - New entry</div>
+      <div class="logo">PassKey - Profile</div>
       <div class="navigation">
         <a href="/">Vault</a>
         <a href="/logout">Logout</a>
@@ -18,42 +19,52 @@
 
 
         <div class="container">
-        <h1><span class="blue">&lt;</span>PassKey<span class="blue">&gt;</span> <span class="yellow">New entity</pan></h1>
-	<form action="/add" method="post">
+        <h1><span class="blue">&lt;</span>PassKey<span class="blue">&gt;</span> <span class="yellow">Profile</pan></h1>
+
+  <form action="/profile" method="post">
     
     <div class="group">      
-      <input type="text" name="service" required >
+      <input type="text" name="firstname" value="{{data[1]}}">
       <span class="highlight"></span>
       <span class="bar"></span>
-      <label>Service</label>
+      <label>First name</label>
     </div>
-    
+
     <div class="group">      
-      <input type="text" name="email" required>
+      <input type="text" name="lastname" value="{{data[2]}}">
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Last name</label>
+    </div>
+
+
+    <div class="group">      
+      <input type="text" name="email" value="{{data[0]}}">
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>Email</label>
     </div>
-
+    
     <div class="group">      
-      <input type="password" name="password" required>
+      <input type="password" name="oldpassword">
       <span class="highlight"></span>
       <span class="bar"></span>
-      <label>Password</label>
+      <label>Old password</label>
     </div>
 
     <div class="group">      
-      <input type="text" name="url" required>
+      <input type="password" name="newpassword">
       <span class="highlight"></span>
       <span class="bar"></span>
-      <label>URL</label>
+      <label>New password</label>
     </div>
 
-	<input type="submit" value="Submit">
+
+	<input type="submit" value="Update" style="color: #fb668e">
 		</form>
-<br>
+    <br>
   <form action="/">
-    <input type="submit" value="Cancel" style="color:#fb667a">
+    <input type="submit" value="Cancel">
   </form>
 
     
